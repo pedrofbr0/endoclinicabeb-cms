@@ -14,7 +14,7 @@ export default defineType({
       name: 'slug',
       title: 'URL do Artigo (Slug)',
       type: 'slug',
-      options: { source: 'titulo' }, // Gera a URL automaticamente baseada no título
+      options: { source: 'titulo' },
     }),
     defineField({
       name: 'autor',

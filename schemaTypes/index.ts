@@ -1,9 +1,7 @@
 import contato from './contato'
-import endereco from './endereco'
-import post from './post'
-import horarioDeAtendimento from './horario-de-atendimento'
-import imagens from './imagens'
+import configuracoesSite from './configuracoes-site'
 import informacoesMedicos from './informacoes-medicos'
+import post from './post'
 
 
-export const schemaTypes = [contato, endereco, post, horarioDeAtendimento, imagens, informacoesMedicos]
+export const schemaTypes = [contato, configuracoesSite, informacoesMedicos, post]
