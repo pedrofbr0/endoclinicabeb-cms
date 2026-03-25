@@ -16,12 +16,12 @@ export default defineType({
       type: "string",
     }),
     defineField({
-      name: "residency-clinica",
+      name: "residencyClinica",
       title: "Residência Clínica",
       type: "string",
     }),
     defineField({
-      name: "residency-endo",
+      name: "residencyEndo",
       title: "Residência em Endocrinologia",
       type: "string",
     }),
