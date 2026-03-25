@@ -6,6 +6,12 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'imagemCapa',
+      title: 'Imagem de Capa (Thumbnail)',
+      type: 'image',
+      options: { hotspot: true }
+    }),
+    defineField({
       name: 'titulo',
       title: 'Título do Artigo',
       type: 'string',
@@ -28,7 +34,17 @@ export default defineType({
       name: 'conteudo',
       title: 'Conteúdo do Texto',
       type: 'array',
-      of: [{ type: 'block' }]
+      of: [
+        { type: 'block' },
+        // A MÁGICA AQUI: Permite inserir imagens no meio dos parágrafos
+        { 
+          type: 'image',
+          options: { hotspot: true },
+          fields: [
+            { name: 'alt', type: 'string', title: 'Legenda / Texto Alternativo' }
+          ]
+        }
+      ]
     }),
   ],
 })
