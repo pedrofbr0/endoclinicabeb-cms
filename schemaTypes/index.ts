@@ -1,7 +1,16 @@
-import contato from './contato'
-import configuracoesSite from './configuracoes-site'
-import informacoesMedicos from './informacoes-medicos'
-import post from './post'
+import clientContactSchema from './clientContact'
+import contactSchema from './contact'
+import doctorProfilesSchema from './doctorProfiles'
+import postSchema from './post'
+import siteSettingsSchema from './siteSettings'
+import youtubeEmbedSchema from './youtubeEmbed'
 
 
-export const schemaTypes = [contato, configuracoesSite, informacoesMedicos, post]
+export const schemaTypes = [
+  contactSchema,
+  siteSettingsSchema,
+  doctorProfilesSchema,
+  postSchema,
+  clientContactSchema,
+  youtubeEmbedSchema,
+]

@@ -1,9 +1,38 @@
-# Sanity Clean Content Studio
+# EndoClinica B&B CMS
 
-Congratulations, you have now installed the Sanity Content Studio, an open-source real-time content editing environment connected to the Sanity backend.
+Sanity Studio project for the EndoClinica B&B website. This repository manages:
 
-Now you can do the following things:
+- blog articles
+- clinic contact details and business hours
+- doctor profiles
+- article display dates
+- YouTube embeds inside article content
+- leads captured by the website contact form
 
-- [Read “getting started” in the docs](https://www.sanity.io/docs/introduction/getting-started?utm_source=readme)
-- [Join the Sanity community](https://www.sanity.io/community/join?utm_source=readme)
-- [Extend and build plugins](https://www.sanity.io/docs/content-studio/extending?utm_source=readme)
+## Scripts
+
+- `npm run dev`
+  Starts Sanity Studio locally.
+- `npm run build`
+  Builds the Studio bundle.
+- `npm run deploy`
+  Deploys the hosted Studio to Sanity.
+- `npm run deploy-graphql`
+  Deploys the GraphQL schema if needed.
+
+## Main Structure
+
+- `schemaTypes/post.ts`
+  Blog post schema.
+- `schemaTypes/clientContact.ts`
+  Schema for website leads and contacts.
+- `schemaTypes/youtubeEmbed.ts`
+  Custom block for YouTube videos.
+- `sanity.config.ts`
+  Studio configuration.
+
+## Frontend Flow
+
+- The frontend queries this project to render the landing page and blog articles.
+- The website form stores leads in the `clienteContato` document type by using a server-side token configured in the frontend.
+- Social sharing previews depend on the Next.js frontend pages, not on the Studio itself.
