@@ -17,7 +17,12 @@ export default defineType({
       description:
         'Prefira uma imagem quadrada, com boa resolução e, de preferência, sem fundo/transparente.',
       options: {
-        hotspot: true,
+        hotspot: {
+          previews: [
+            {title: 'Header', aspectRatio: 4},
+            {title: 'Quadrado', aspectRatio: 1},
+          ],
+        },
       },
     }),
     defineField({
@@ -28,7 +33,9 @@ export default defineType({
       description:
         'Prefira uma imagem quadrada em pixels, simples e bem legível em tamanho pequeno. De preferência, use fundo branco ou azul.',
       options: {
-        hotspot: true,
+        hotspot: {
+          previews: [{title: 'Quadrado', aspectRatio: 1}],
+        },
       },
     }),
     defineField({
@@ -37,9 +44,14 @@ export default defineType({
       type: 'image',
       group: 'hero',
       description:
-        'Essa imagem aparece no topo do site em destaque. Use "Editar foco e recortar" para garantir um bom enquadramento no desktop e no mobile.',
+        'Essa imagem aparece no topo do site em destaque. A prévia "Hero do site" é a principal referência do enquadramento publicado.',
       options: {
-        hotspot: true,
+        hotspot: {
+          previews: [
+            {title: 'Hero do site', aspectRatio: 4 / 5},
+            {title: 'Retrato', aspectRatio: 3 / 4},
+          ],
+        },
       },
     }),
   ],

@@ -6,7 +6,7 @@ export const SiteSettingsStudioPreview: UserViewComponent = ({document}) => {
   const displayed = (document.displayed || {}) as Record<string, any>
   const logoUrl = buildImageUrl(displayed.logo, {width: 320, height: 96, fit: 'max'})
   const faviconUrl = buildImageUrl(displayed.favicon, {width: 64, height: 64, fit: 'max'})
-  const heroUrl = buildImageUrl(displayed.heroImage, {width: 1600, height: 1400, fit: 'crop'})
+  const heroUrl = buildImageUrl(displayed.heroImage, {width: 1200, height: 1500, fit: 'crop'})
 
   return (
     <Box padding={4}>
@@ -99,7 +99,7 @@ export const SiteSettingsStudioPreview: UserViewComponent = ({document}) => {
             <Stack space={4}>
               <Flex align="center" justify="space-between">
                 <Heading size={1}>Imagem principal do topo</Heading>
-                <Badge tone="caution">desktop 560 x 750 aprox.</Badge>
+                <Badge tone="caution">Hero do site 4:5</Badge>
               </Flex>
 
               <div
@@ -108,16 +108,17 @@ export const SiteSettingsStudioPreview: UserViewComponent = ({document}) => {
                   overflow: 'hidden',
                   background: '#F8F5EE',
                   boxShadow: '0 18px 42px rgba(15, 23, 42, 0.06)',
+                  aspectRatio: '4 / 5',
                 }}
               >
                 {heroUrl ? (
                   <img
                     alt="Hero"
                     src={heroUrl}
-                    style={{width: '100%', height: 520, objectFit: 'cover', display: 'block'}}
+                    style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block'}}
                   />
                 ) : (
-                  <Flex align="center" justify="center" style={{height: 520}}>
+                  <Flex align="center" justify="center" style={{width: '100%', height: '100%'}}>
                     <Text muted size={1}>
                       A imagem principal do topo aparecerá aqui.
                     </Text>

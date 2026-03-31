@@ -1,4 +1,5 @@
 import {defineField, defineType} from 'sanity'
+import {DoctorCardImageField} from '../components/fields/DoctorCardImageField'
 
 export default defineType({
   name: 'informacoesMedicos',
@@ -8,6 +9,21 @@ export default defineType({
     {name: 'identity', title: 'Identificação', default: true},
     {name: 'profile', title: 'Foto e Perfil'},
   ],
+  preview: {
+    select: {
+      title: 'nome',
+      subtitle: 'crm',
+      cardMedia: 'imagemCard',
+      media: 'imagem',
+    },
+    prepare(selection) {
+      return {
+        title: selection.title,
+        subtitle: selection.subtitle,
+        media: selection.cardMedia || selection.media,
+      }
+    },
+  },
   fields: [
     defineField({
       name: 'nome',
@@ -52,22 +68,36 @@ export default defineType({
       group: 'profile',
     }),
     defineField({
-      name: 'imagem',
-      title: 'Foto do Médico',
+      name: 'imagemCard',
+      title: 'Imagem para o card da equipe',
       type: 'image',
       group: 'profile',
       description:
-        'Use "Editar foco e recortar" para ajustar como a foto aparecerá no card da equipe.',
+        'Use este campo para controlar exatamente o enquadramento que aparece no card do site. Se nada for escolhido aqui, o card usará a foto principal automaticamente.',
+      components: {
+        field: DoctorCardImageField,
+      },
       options: {
-        hotspot: true,
+        hotspot: {
+          previews: [{title: 'Card do médico', aspectRatio: 16 / 10}],
+        },
+      },
+    }),
+    defineField({
+      name: 'imagem',
+      title: 'Foto principal do médico',
+      type: 'image',
+      group: 'profile',
+      description:
+        'Imagem base do perfil. Se nenhuma imagem específica para o card for escolhida acima, o site usará esta foto como fallback.',
+      options: {
+        hotspot: {
+          previews: [
+            {title: 'Retrato', aspectRatio: 3 / 4},
+            {title: 'Quadrado', aspectRatio: 1},
+          ],
+        },
       },
     }),
   ],
-  preview: {
-    select: {
-      title: 'nome',
-      subtitle: 'crm',
-      media: 'imagem',
-    },
-  },
 })
