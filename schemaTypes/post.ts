@@ -172,6 +172,7 @@ export default defineType({
           },
         },
         {
+          title: 'Imagem',
           type: 'image',
           options: {hotspot: true},
           fields: [{name: 'alt', type: 'string', title: 'Legenda / Texto Alternativo'}],
