@@ -1,4 +1,7 @@
 import {defineField, defineType} from 'sanity'
+import {FaviconImageField} from '../components/fields/FaviconImageField'
+import {HeroImageField} from '../components/fields/HeroImageField'
+import {LogoImageField} from '../components/fields/LogoImageField'
 
 export default defineType({
   name: 'configuracoesSite',
@@ -15,13 +18,13 @@ export default defineType({
       type: 'image',
       group: 'branding',
       description:
-        'Prefira uma imagem quadrada, com boa resolução e, de preferência, sem fundo/transparente.',
+        'Use o símbolo da marca ou uma logo compacta, com boa resolução e, de preferência, sem fundo ou com fundo transparente. A prévia abaixo mostra a diagramação real do header.',
+      components: {
+        field: LogoImageField,
+      },
       options: {
         hotspot: {
-          previews: [
-            {title: 'Header', aspectRatio: 4},
-            {title: 'Quadrado', aspectRatio: 1},
-          ],
+          previews: [{title: 'Header do site', aspectRatio: 4}],
         },
       },
     }),
@@ -32,9 +35,12 @@ export default defineType({
       group: 'branding',
       description:
         'Prefira uma imagem quadrada em pixels, simples e bem legível em tamanho pequeno. De preferência, use fundo branco ou azul.',
+      components: {
+        field: FaviconImageField,
+      },
       options: {
         hotspot: {
-          previews: [{title: 'Quadrado', aspectRatio: 1}],
+          previews: [{title: 'Favicon', aspectRatio: 1}],
         },
       },
     }),
@@ -44,13 +50,13 @@ export default defineType({
       type: 'image',
       group: 'hero',
       description:
-        'Essa imagem aparece no topo do site em destaque. A prévia "Hero do site" é a principal referência do enquadramento publicado.',
+        'Esta imagem aparece no topo do site. Use "Editar foco e recortar" e acompanhe a prévia "Hero do site" para ver a região realmente visível no frontend.',
+      components: {
+        field: HeroImageField,
+      },
       options: {
         hotspot: {
-          previews: [
-            {title: 'Hero do site', aspectRatio: 4 / 5},
-            {title: 'Retrato', aspectRatio: 3 / 4},
-          ],
+          previews: [{title: 'Hero do site', aspectRatio: 4 / 5}],
         },
       },
     }),

@@ -1,5 +1,7 @@
 import {createElement} from 'react'
 import {defineField, defineType} from 'sanity'
+import {PostCardImageField} from '../components/fields/PostCardImageField'
+import {PostCoverImageField} from '../components/fields/PostCoverImageField'
 import {PostBodyInput} from '../components/portableText/PostBodyInput'
 import {ContentImageThumbnailMedia} from '../components/previews/ContentImageThumbnailMedia'
 
@@ -51,14 +53,15 @@ export default defineType({
       type: 'image',
       group: 'media',
       description:
-        'Usada na página do artigo e nos compartilhamentos. Use "Editar foco e recortar" para ajustar o enquadramento principal.',
+        'Usada na página do artigo e nos compartilhamentos. Use "Editar foco e recortar" e acompanhe as prévias abaixo para conferir o recorte real.',
+      components: {
+        field: PostCoverImageField,
+      },
       options: {
         hotspot: {
           previews: [
-            {title: '3:4', aspectRatio: 3 / 4},
-            {title: 'Square', aspectRatio: 1},
-            {title: '16:9', aspectRatio: 16 / 9},
-            {title: 'Panorama', aspectRatio: 21 / 9},
+            {title: 'Capa do artigo', aspectRatio: 39 / 16},
+            {title: 'Compartilhamento', aspectRatio: 40 / 21},
           ],
         },
       },
@@ -70,9 +73,12 @@ export default defineType({
       group: 'media',
       description:
         'Opcional. Use este campo quando a capa principal não funcionar bem nas miniaturas. Se nada for escolhido aqui, o site usa automaticamente a imagem de capa do artigo.',
+      components: {
+        field: PostCardImageField,
+      },
       options: {
         hotspot: {
-          previews: [{title: '16:9', aspectRatio: 16 / 9}],
+          previews: [{title: 'Card do blog', aspectRatio: 16 / 9}],
         },
       },
     }),
