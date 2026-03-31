@@ -1,4 +1,5 @@
 import {defineField, defineType} from 'sanity'
+import {PostBodyInput} from '../components/portableText/PostBodyInput'
 
 function formatPreviewDate(value?: string) {
   if (!value) return 'Sem data definida'
@@ -15,6 +16,11 @@ export default defineType({
   name: 'post',
   title: 'Artigos do Blog',
   type: 'document',
+  groups: [
+    {name: 'content', title: 'Conteudo', default: true},
+    {name: 'media', title: 'Imagens'},
+    {name: 'publishing', title: 'Publicacao'},
+  ],
   preview: {
     select: {
       title: 'titulo',
@@ -41,6 +47,7 @@ export default defineType({
       name: 'imagemCapa',
       title: 'Imagem de Capa do Artigo',
       type: 'image',
+      group: 'media',
       description:
         'Usada na pagina do artigo e nos compartilhamentos. Use "Editar foco e recortar" para ajustar o enquadramento principal.',
       options: {
@@ -58,6 +65,7 @@ export default defineType({
       name: 'imagemCard',
       title: 'Imagem para os Cards do Blog',
       type: 'image',
+      group: 'media',
       description:
         'Opcional. Use este campo quando a capa principal nao funcionar bem nas miniaturas. Se nada for escolhido aqui, o site usa automaticamente a imagem de capa do artigo.',
       options: {
@@ -70,17 +78,20 @@ export default defineType({
       name: 'titulo',
       title: 'Titulo do Artigo',
       type: 'string',
+      group: 'content',
     }),
     defineField({
       name: 'slug',
       title: 'URL do Artigo (Slug)',
       type: 'slug',
+      group: 'content',
       options: {source: 'titulo'},
     }),
     defineField({
       name: 'autor',
       title: 'Autor',
       type: 'string',
+      group: 'publishing',
       options: {
         list: ['Dr. Rui Barbosa', 'Dr. Yuri Bittencourt'],
       },
@@ -89,6 +100,7 @@ export default defineType({
       name: 'usarDataReal',
       title: 'Exibir a data real de publicacao',
       type: 'boolean',
+      group: 'publishing',
       description:
         'Quando ativo, o site mostra a data real registrada pelo Sanity. Desative para usar uma data ficticia.',
       initialValue: true,
@@ -97,6 +109,7 @@ export default defineType({
       name: 'dataExibicao',
       title: 'Data exibida no site',
       type: 'date',
+      group: 'publishing',
       description:
         'Usada apenas quando a data real estiver desativada. A data real continua registrada internamente pelo Sanity.',
       hidden: ({document}) => document?.usarDataReal !== false,
@@ -113,15 +126,17 @@ export default defineType({
       name: 'conteudo',
       title: 'Conteudo do Texto',
       type: 'array',
+      group: 'content',
+      description:
+        'Use o seletor de estilos apenas para a hierarquia do texto. O alinhamento fica separado dentro do proprio editor, e voce pode escrever usando atalhos Markdown como #, ##, >, -, 1., ** e *.',
+      components: {
+        input: PostBodyInput,
+      },
       of: [
         {
           type: 'block',
           styles: [
-            {title: 'Justificado (padrao)', value: 'normal'},
-            {title: 'A esquerda', value: 'alignLeft'},
-            {title: 'Centralizado', value: 'alignCenter'},
-            {title: 'A direita', value: 'alignRight'},
-            {title: 'Paragrafo justificado', value: 'justified'},
+            {title: 'Paragrafo', value: 'normal'},
             {title: 'Introducao em destaque', value: 'lead'},
             {title: 'Titulo de secao', value: 'h2'},
             {title: 'Subtitulo', value: 'h3'},

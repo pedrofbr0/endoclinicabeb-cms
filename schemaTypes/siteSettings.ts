@@ -4,11 +4,16 @@ export default defineType({
   name: 'configuracoesSite',
   title: 'Configuracoes do Site',
   type: 'document',
+  groups: [
+    {name: 'branding', title: 'Marca', default: true},
+    {name: 'hero', title: 'Imagem Principal'},
+  ],
   fields: [
     defineField({
       name: 'logo',
       title: 'Logo da Clinica',
       type: 'image',
+      group: 'branding',
       description:
         'Prefira uma imagem quadrada, com boa resolucao e, de preferencia, sem fundo/transparente.',
       options: {
@@ -19,6 +24,7 @@ export default defineType({
       name: 'favicon',
       title: 'Favicon do Site',
       type: 'image',
+      group: 'branding',
       description:
         'Prefira uma imagem quadrada em pixels, simples e bem legivel em tamanho pequeno. De preferencia use fundo branco ou azul.',
       options: {
@@ -29,6 +35,9 @@ export default defineType({
       name: 'heroImage',
       title: 'Imagem de Destaque (Topo do Site)',
       type: 'image',
+      group: 'hero',
+      description:
+        'Essa imagem aparece no topo do site em destaque. Use "Editar foco e recortar" para garantir um bom enquadramento no desktop e no mobile.',
       options: {
         hotspot: true,
       },

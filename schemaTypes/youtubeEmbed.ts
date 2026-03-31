@@ -1,4 +1,6 @@
+import {createElement} from 'react'
 import {defineField, defineType} from 'sanity'
+import {YouTubeThumbnailMedia} from '../components/previews/YouTubeThumbnailMedia'
 
 function extractYouTubeId(url?: string) {
   if (!url) return ''
@@ -57,6 +59,10 @@ export default defineType({
       return {
         title: selection.title || 'Video do YouTube',
         subtitle: videoId ? `YouTube - ${videoId}` : selection.url,
+        media: createElement(YouTubeThumbnailMedia, {
+          title: selection.title || 'Video do YouTube',
+          url: selection.url,
+        }),
       }
     },
   },

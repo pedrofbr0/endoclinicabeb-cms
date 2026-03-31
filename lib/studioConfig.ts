@@ -1,0 +1,5 @@
+export const STUDIO_PROJECT_ID = 'olc9cotp'
+export const STUDIO_DATASET = 'production'
+export const STUDIO_API_VERSION = '2024-03-24'
+export const STUDIO_NAME = 'default'
+export const STUDIO_TITLE = 'endoclinicabeb-cms'
