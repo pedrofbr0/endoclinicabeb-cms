@@ -1,5 +1,7 @@
+import {createElement} from 'react'
 import {defineField, defineType} from 'sanity'
 import {PostBodyInput} from '../components/portableText/PostBodyInput'
+import {ContentImageThumbnailMedia} from '../components/previews/ContentImageThumbnailMedia'
 
 function formatPreviewDate(value?: string) {
   if (!value) return 'Sem data definida'
@@ -176,6 +178,26 @@ export default defineType({
           type: 'image',
           options: {hotspot: true},
           fields: [{name: 'alt', type: 'string', title: 'Legenda / Texto Alternativo'}],
+          preview: {
+            select: {
+              alt: 'alt',
+              image: 'asset',
+              originalFilename: 'asset.originalFilename',
+            },
+            prepare(selection) {
+              return {
+                title: 'Imagem no conteúdo',
+                subtitle:
+                  selection.alt ||
+                  selection.originalFilename ||
+                  'A imagem será exibida apenas na aba de pré-visualização do artigo.',
+                media: createElement(ContentImageThumbnailMedia, {
+                  image: selection.image,
+                  title: selection.alt || selection.originalFilename || 'Imagem no conteúdo',
+                }),
+              }
+            },
+          },
         },
         {
           type: 'youtubeEmbed',

@@ -1,4 +1,4 @@
-import {Badge, Box, Card, Flex, Heading, Stack, Text} from '@sanity/ui'
+import {Badge, Box, Card, Flex, Grid, Heading, Stack, Text} from '@sanity/ui'
 import type {UserViewComponent} from 'sanity/structure'
 import {buildImageUrl, hasImageAsset} from '../../lib/imagePreview'
 import {PortableTextPreview} from './PortableTextPreview'
@@ -92,6 +92,106 @@ export const PostStudioPreview: UserViewComponent = ({document}) => {
           </Text>
         </Stack>
 
+        <Grid columns={[1, 1, 2]} gap={4}>
+          <Card border padding={4} radius={4}>
+            <Stack space={3}>
+              <Flex align="center" justify="space-between">
+                <Heading size={1}>Capa da página do artigo</Heading>
+                <Badge tone="caution">aprox. 780 x 420</Badge>
+              </Flex>
+              <Text muted size={1}>
+                Esta imagem é usada no topo da página do artigo e também influencia o
+                compartilhamento.
+              </Text>
+              <div
+                style={{
+                  background: '#ffffff',
+                  borderRadius: 24,
+                  border: '1px solid rgba(26, 58, 82, 0.08)',
+                  padding: '28px 24px',
+                }}
+              >
+                <div style={{maxWidth: 780, margin: '0 auto'}}>
+                  <PreviewImage
+                    alt={title}
+                    height={320}
+                    image={displayed.imagemCapa}
+                    objectFit="contain"
+                    width={780}
+                  />
+                </div>
+              </div>
+            </Stack>
+          </Card>
+
+          <Card border padding={4} radius={4}>
+            <Stack space={3}>
+              <Flex align="center" justify="space-between">
+                <Heading size={1}>Card do blog</Heading>
+                <Badge tone="primary">16:9</Badge>
+              </Flex>
+
+              {usesCoverFallback ? (
+                <Text muted size={1}>
+                  Nenhuma imagem específica para card foi escolhida. O preview abaixo está usando a
+                  imagem de capa automaticamente.
+                </Text>
+              ) : null}
+
+              <article
+                style={{
+                  maxWidth: 420,
+                  background: '#ffffff',
+                  borderRadius: 24,
+                  overflow: 'hidden',
+                  border: '1px solid rgba(26, 58, 82, 0.08)',
+                  boxShadow: '0 18px 42px rgba(15, 23, 42, 0.06)',
+                }}
+              >
+                <PreviewImage alt={title} height={214} image={articleCardImage} width={420} />
+
+                <div style={{padding: 28}}>
+                  <p
+                    style={{
+                      margin: '0 0 12px',
+                      color: '#C9A962',
+                      fontSize: 14,
+                      fontWeight: 600,
+                      letterSpacing: 0.4,
+                    }}
+                  >
+                    {formatPreviewDate(displayed)} . {author}
+                  </p>
+                  <h3
+                    style={{
+                      margin: '0 0 14px',
+                      color: '#1A3A52',
+                      fontSize: 28,
+                      fontWeight: 700,
+                      lineHeight: 1.25,
+                      fontFamily: 'Georgia, serif',
+                    }}
+                  >
+                    {title}
+                  </h3>
+                  <p
+                    style={{
+                      margin: 0,
+                      color: '#6B7280',
+                      fontSize: 17,
+                      lineHeight: 1.7,
+                    }}
+                  >
+                    {(displayed.conteudo &&
+                      String(displayed.conteudo?.[0]?.children?.[0]?.text || '')?.slice(0, 140)) ||
+                      'O resumo do artigo aparecerá aqui quando o texto for preenchido.'}
+                  </p>
+                </div>
+              </article>
+            </Stack>
+          </Card>
+        </Grid>
+
         <div
           style={{
             background: '#ffffff',
@@ -105,7 +205,7 @@ export const PostStudioPreview: UserViewComponent = ({document}) => {
             style={{
               maxWidth: 980,
               margin: '0 auto',
-              padding: '40px 28px 56px',
+              padding: '28px 24px 40px',
               background: '#ffffff',
             }}
           >
@@ -136,7 +236,7 @@ export const PostStudioPreview: UserViewComponent = ({document}) => {
               >
                 <PreviewImage
                   alt={title}
-                  height={420}
+                  height={320}
                   image={displayed.imagemCapa}
                   objectFit="contain"
                   width={780}
@@ -222,73 +322,6 @@ export const PostStudioPreview: UserViewComponent = ({document}) => {
             </div>
           </div>
         </div>
-
-        <Card border padding={4} radius={4}>
-          <Stack space={3}>
-            <Flex align="center" justify="space-between">
-              <Heading size={1}>Card do blog</Heading>
-              <Badge tone="primary">16:9</Badge>
-            </Flex>
-
-            {usesCoverFallback ? (
-              <Text muted size={1}>
-                Nenhuma imagem específica para card foi escolhida. O preview abaixo está usando a
-                imagem de capa automaticamente.
-              </Text>
-            ) : null}
-
-            <article
-              style={{
-                maxWidth: 420,
-                background: '#ffffff',
-                borderRadius: 24,
-                overflow: 'hidden',
-                border: '1px solid rgba(26, 58, 82, 0.08)',
-                boxShadow: '0 18px 42px rgba(15, 23, 42, 0.06)',
-              }}
-            >
-              <PreviewImage alt={title} height={214} image={articleCardImage} width={420} />
-
-              <div style={{padding: 28}}>
-                <p
-                  style={{
-                    margin: '0 0 12px',
-                    color: '#C9A962',
-                    fontSize: 14,
-                    fontWeight: 600,
-                    letterSpacing: 0.4,
-                  }}
-                >
-                  {formatPreviewDate(displayed)} . {author}
-                </p>
-                <h3
-                  style={{
-                    margin: '0 0 14px',
-                    color: '#1A3A52',
-                    fontSize: 28,
-                    fontWeight: 700,
-                    lineHeight: 1.25,
-                    fontFamily: 'Georgia, serif',
-                  }}
-                >
-                  {title}
-                </h3>
-                <p
-                  style={{
-                    margin: 0,
-                    color: '#6B7280',
-                    fontSize: 17,
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {(displayed.conteudo &&
-                    String(displayed.conteudo?.[0]?.children?.[0]?.text || '')?.slice(0, 140)) ||
-                    'O resumo do artigo aparecerá aqui quando o texto for preenchido.'}
-                </p>
-              </div>
-            </article>
-          </Stack>
-        </Card>
       </Stack>
     </Box>
   )

@@ -12,7 +12,7 @@ const previewClient = createClient({
 const imageBuilder = createImageUrlBuilder(previewClient)
 
 export function hasImageAsset(source: any) {
-  return Boolean(source?.asset?._ref)
+  return Boolean(source?.asset?._ref || source?._ref || source?.url)
 }
 
 export function buildImageUrl(
@@ -25,6 +25,10 @@ export function buildImageUrl(
 ) {
   if (!hasImageAsset(source)) {
     return ''
+  }
+
+  if (typeof source?.url === 'string' && source.url) {
+    return source.url
   }
 
   let builder = imageBuilder.image(source).auto('format')
