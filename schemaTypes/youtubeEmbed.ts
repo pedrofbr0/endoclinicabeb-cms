@@ -29,24 +29,24 @@ function extractYouTubeId(url?: string) {
 
 export default defineType({
   name: 'youtubeEmbed',
-  title: 'Video do YouTube',
+  title: 'Vídeo do YouTube',
   type: 'object',
   fields: [
     defineField({
       name: 'url',
-      title: 'Link do video',
+      title: 'Link do vídeo',
       type: 'url',
       validation: (Rule) =>
         Rule.required().custom((value) => {
           const videoId = extractYouTubeId(value)
-          return videoId ? true : 'Informe um link valido do YouTube.'
+          return videoId ? true : 'Informe um link válido do YouTube.'
         }),
     }),
     defineField({
       name: 'titulo',
-      title: 'Titulo do video',
+      title: 'Título do vídeo',
       type: 'string',
-      description: 'Opcional. Ajuda na organizacao do conteudo e acessibilidade no site.',
+      description: 'Opcional. Ajuda na organização do conteúdo e na acessibilidade no site.',
     }),
   ],
   preview: {
@@ -57,10 +57,10 @@ export default defineType({
     prepare(selection) {
       const videoId = extractYouTubeId(selection.url)
       return {
-        title: selection.title || 'Video do YouTube',
+        title: selection.title || 'Vídeo do YouTube',
         subtitle: videoId ? `YouTube - ${videoId}` : selection.url,
         media: createElement(YouTubeThumbnailMedia, {
-          title: selection.title || 'Video do YouTube',
+          title: selection.title || 'Vídeo do YouTube',
           url: selection.url,
         }),
       }

@@ -6,9 +6,9 @@ import {PortableTextInput, type PortableTextInputProps} from 'sanity'
 
 const alignmentOptions = [
   {value: 'justify', label: 'Justificar', icon: JustifyAlignIcon},
-  {value: 'left', label: 'A esquerda', icon: LeftAlignIcon},
+  {value: 'left', label: 'À esquerda', icon: LeftAlignIcon},
   {value: 'center', label: 'Centralizar', icon: CenterAlignIcon},
-  {value: 'right', label: 'A direita', icon: RightAlignIcon},
+  {value: 'right', label: 'À direita', icon: RightAlignIcon},
 ] as const
 
 const paragraphStyleMap = {
@@ -186,20 +186,20 @@ export function PostBodyInput(props: PortableTextInputProps) {
           </Text>
           <Text muted size={1}>
             O seletor de estilos agora cuida apenas da hierarquia do texto. O alinhamento aparece
-            dentro da mesma barra do editor, junto das opcoes como negrito e italico.
+            dentro da mesma barra do editor, junto das opções como negrito e itálico.
           </Text>
           <Text muted size={1}>
-            O editor aceita Markdown enquanto voce digita, sem perder o formato estruturado do
+            O editor aceita Markdown enquanto você digita, sem perder o formato estruturado do
             artigo.
           </Text>
           <Inline space={2}>
-            <Code size={1}># Titulo</Code>
-            <Code size={1}>## Subtitulo</Code>
+            <Code size={1}># Título</Code>
+            <Code size={1}>## Subtítulo</Code>
             <Code size={1}>- Lista</Code>
             <Code size={1}>1. Lista</Code>
-            <Code size={1}>&gt; Citacao</Code>
+            <Code size={1}>&gt; Citação</Code>
             <Code size={1}>**Negrito**</Code>
-            <Code size={1}>*Italico*</Code>
+            <Code size={1}>*Itálico*</Code>
           </Inline>
         </Stack>
       </Card>
@@ -228,7 +228,7 @@ export function PostBodyInput(props: PortableTextInputProps) {
                         <Text size={1}>
                           {isParagraphBlock
                             ? option.label
-                            : 'Selecione um paragrafo para usar os controles de alinhamento.'}
+                            : 'Selecione um parágrafo para usar os controles de alinhamento.'}
                         </Text>
                       </Card>
                     }

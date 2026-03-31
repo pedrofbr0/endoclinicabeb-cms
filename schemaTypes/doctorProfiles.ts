@@ -2,16 +2,16 @@ import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'informacoesMedicos',
-  title: 'Equipe Medica',
+  title: 'Equipe Médica',
   type: 'document',
   groups: [
-    {name: 'identity', title: 'Identificacao', default: true},
+    {name: 'identity', title: 'Identificação', default: true},
     {name: 'profile', title: 'Foto e Perfil'},
   ],
   fields: [
     defineField({
       name: 'nome',
-      title: 'Nome do Medico',
+      title: 'Nome do Médico',
       type: 'string',
       group: 'identity',
     }),
@@ -29,7 +29,7 @@ export default defineType({
     }),
     defineField({
       name: 'formacao',
-      title: 'Formacao',
+      title: 'Formação',
       type: 'string',
       group: 'identity',
     }),
@@ -41,23 +41,23 @@ export default defineType({
     }),
     defineField({
       name: 'residencyClinica',
-      title: 'Residencia Clinica',
+      title: 'Residência Clínica',
       type: 'string',
       group: 'profile',
     }),
     defineField({
       name: 'residencyEndo',
-      title: 'Residencia em Endocrinologia',
+      title: 'Residência em Endocrinologia',
       type: 'string',
       group: 'profile',
     }),
     defineField({
       name: 'imagem',
-      title: 'Foto do Medico',
+      title: 'Foto do Médico',
       type: 'image',
       group: 'profile',
       description:
-        'Use "Editar foco e recortar" para ajustar como a foto aparecera no card da equipe.',
+        'Use "Editar foco e recortar" para ajustar como a foto aparecerá no card da equipe.',
       options: {
         hotspot: true,
       },

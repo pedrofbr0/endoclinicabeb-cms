@@ -20,7 +20,7 @@ export default defineType({
     },
     prepare(selection) {
       const contactLine = [selection.subtitle, selection.email].filter(Boolean).join(' - ')
-      const statusLabel = selection.status ? `Status: ${selection.status}` : 'Status nao definido'
+      const statusLabel = selection.status ? `Status: ${selection.status}` : 'Status não definido'
 
       return {
         title: selection.title || 'Lead sem nome',
@@ -84,7 +84,7 @@ export default defineType({
     }),
     defineField({
       name: 'observacoesInternas',
-      title: 'Observacoes internas',
+      title: 'Observações internas',
       type: 'text',
       rows: 4,
     }),

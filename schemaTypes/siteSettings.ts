@@ -2,7 +2,7 @@ import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'configuracoesSite',
-  title: 'Configuracoes do Site',
+  title: 'Configurações do Site',
   type: 'document',
   groups: [
     {name: 'branding', title: 'Marca', default: true},
@@ -11,11 +11,11 @@ export default defineType({
   fields: [
     defineField({
       name: 'logo',
-      title: 'Logo da Clinica',
+      title: 'Logo da Clínica',
       type: 'image',
       group: 'branding',
       description:
-        'Prefira uma imagem quadrada, com boa resolucao e, de preferencia, sem fundo/transparente.',
+        'Prefira uma imagem quadrada, com boa resolução e, de preferência, sem fundo/transparente.',
       options: {
         hotspot: true,
       },
@@ -26,7 +26,7 @@ export default defineType({
       type: 'image',
       group: 'branding',
       description:
-        'Prefira uma imagem quadrada em pixels, simples e bem legivel em tamanho pequeno. De preferencia use fundo branco ou azul.',
+        'Prefira uma imagem quadrada em pixels, simples e bem legível em tamanho pequeno. De preferência, use fundo branco ou azul.',
       options: {
         hotspot: true,
       },
@@ -51,7 +51,7 @@ export default defineType({
     },
     prepare(selection) {
       return {
-        title: 'Configuracoes do Site',
+        title: 'Configurações do Site',
         media: selection.logo || selection.favicon || selection.heroImage,
       }
     },

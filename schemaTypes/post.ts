@@ -17,9 +17,9 @@ export default defineType({
   title: 'Artigos do Blog',
   type: 'document',
   groups: [
-    {name: 'content', title: 'Conteudo', default: true},
+    {name: 'content', title: 'Conteúdo', default: true},
     {name: 'media', title: 'Imagens'},
-    {name: 'publishing', title: 'Publicacao'},
+    {name: 'publishing', title: 'Publicação'},
   ],
   preview: {
     select: {
@@ -49,7 +49,7 @@ export default defineType({
       type: 'image',
       group: 'media',
       description:
-        'Usada na pagina do artigo e nos compartilhamentos. Use "Editar foco e recortar" para ajustar o enquadramento principal.',
+        'Usada na página do artigo e nos compartilhamentos. Use "Editar foco e recortar" para ajustar o enquadramento principal.',
       options: {
         hotspot: {
           previews: [
@@ -67,7 +67,7 @@ export default defineType({
       type: 'image',
       group: 'media',
       description:
-        'Opcional. Use este campo quando a capa principal nao funcionar bem nas miniaturas. Se nada for escolhido aqui, o site usa automaticamente a imagem de capa do artigo.',
+        'Opcional. Use este campo quando a capa principal não funcionar bem nas miniaturas. Se nada for escolhido aqui, o site usa automaticamente a imagem de capa do artigo.',
       options: {
         hotspot: {
           previews: [{title: '16:9', aspectRatio: 16 / 9}],
@@ -76,7 +76,7 @@ export default defineType({
     }),
     defineField({
       name: 'titulo',
-      title: 'Titulo do Artigo',
+      title: 'Título do Artigo',
       type: 'string',
       group: 'content',
     }),
@@ -98,11 +98,11 @@ export default defineType({
     }),
     defineField({
       name: 'usarDataReal',
-      title: 'Exibir a data real de publicacao',
+      title: 'Exibir a data real de publicação',
       type: 'boolean',
       group: 'publishing',
       description:
-        'Quando ativo, o site mostra a data real registrada pelo Sanity. Desative para usar uma data ficticia.',
+        'Quando ativo, o site mostra a data real registrada pelo Sanity. Desative para usar uma data fictícia.',
       initialValue: true,
     }),
     defineField({
@@ -124,11 +124,11 @@ export default defineType({
     }),
     defineField({
       name: 'conteudo',
-      title: 'Conteudo do Texto',
+      title: 'Conteúdo do Texto',
       type: 'array',
       group: 'content',
       description:
-        'Use o seletor de estilos apenas para a hierarquia do texto. O alinhamento fica separado dentro do proprio editor, e voce pode escrever usando atalhos Markdown como #, ##, >, -, 1., ** e *.',
+        'Use o seletor de estilos apenas para a hierarquia do texto. O alinhamento fica separado dentro do próprio editor, e você pode escrever usando atalhos Markdown como #, ##, >, -, 1., ** e *.',
       components: {
         input: PostBodyInput,
       },
@@ -136,11 +136,11 @@ export default defineType({
         {
           type: 'block',
           styles: [
-            {title: 'Paragrafo', value: 'normal'},
-            {title: 'Introducao em destaque', value: 'lead'},
-            {title: 'Titulo de secao', value: 'h2'},
-            {title: 'Subtitulo', value: 'h3'},
-            {title: 'Citacao', value: 'blockquote'},
+            {title: 'Parágrafo', value: 'normal'},
+            {title: 'Introdução em destaque', value: 'lead'},
+            {title: 'Título de seção', value: 'h2'},
+            {title: 'Subtítulo', value: 'h3'},
+            {title: 'Citação', value: 'blockquote'},
           ],
           lists: [
             {title: 'Marcadores', value: 'bullet'},
@@ -149,7 +149,7 @@ export default defineType({
           marks: {
             decorators: [
               {title: 'Negrito', value: 'strong'},
-              {title: 'Italico', value: 'em'},
+              {title: 'Itálico', value: 'em'},
             ],
             annotations: [
               {

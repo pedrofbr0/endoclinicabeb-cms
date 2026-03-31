@@ -70,7 +70,7 @@ export function YouTubeThumbnailMedia({title, url}: {title?: string; url?: strin
   return (
     <div style={frameStyles}>
       <img
-        alt={title || 'Thumbnail do video'}
+        alt={title || 'Thumbnail do vídeo'}
         src={thumbnailUrl}
         style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block'}}
       />

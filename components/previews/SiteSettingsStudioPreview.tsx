@@ -12,7 +12,7 @@ export const SiteSettingsStudioPreview: UserViewComponent = ({document}) => {
     <Box padding={4}>
       <Stack space={5}>
         <Stack space={2}>
-          <Heading size={1}>Pre-visualizacao da marca e do topo</Heading>
+          <Heading size={1}>Pré-visualização da marca e do topo</Heading>
           <Text muted size={1}>
             Esta aba mostra como a marca aparece no header, no favicon e no bloco principal do
             site.
@@ -86,7 +86,7 @@ export const SiteSettingsStudioPreview: UserViewComponent = ({document}) => {
                       />
                     ) : (
                       <Text muted size={1}>
-                        A logo da clinica aparecera aqui.
+                        A logo da clínica aparecerá aqui.
                       </Text>
                     )}
                   </div>
@@ -119,7 +119,7 @@ export const SiteSettingsStudioPreview: UserViewComponent = ({document}) => {
                 ) : (
                   <Flex align="center" justify="center" style={{height: 520}}>
                     <Text muted size={1}>
-                      A imagem principal do topo aparecera aqui.
+                      A imagem principal do topo aparecerá aqui.
                     </Text>
                   </Flex>
                 )}

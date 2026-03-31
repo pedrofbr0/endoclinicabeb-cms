@@ -19,9 +19,13 @@ export default defineConfig({
   projectId: STUDIO_PROJECT_ID,
   dataset: STUDIO_DATASET,
 
-  plugins: [structureTool({defaultDocumentNode}), visionTool(), ptBRLocale({
-      title: 'Portuguese (Brazil)',
-    })],
+  plugins: [
+    structureTool({defaultDocumentNode}),
+    visionTool(),
+    ptBRLocale({
+      title: 'Português (Brasil)',
+    }),
+  ],
 
   form: {
     components: {

@@ -76,7 +76,7 @@ function PreviewImage({
 
 export const PostStudioPreview: UserViewComponent = ({document}) => {
   const displayed = (document.displayed || {}) as Record<string, any>
-  const title = displayed.titulo || 'Titulo do artigo'
+  const title = displayed.titulo || 'Título do artigo'
   const author = displayed.autor || 'Autor do artigo'
   const articleCardImage = displayed.imagemCard || displayed.imagemCapa
   const usesCoverFallback = !hasImageAsset(displayed.imagemCard) && hasImageAsset(displayed.imagemCapa)
@@ -85,10 +85,10 @@ export const PostStudioPreview: UserViewComponent = ({document}) => {
     <Box padding={4}>
       <Stack space={5}>
         <Stack space={2}>
-          <Heading size={1}>Pre-visualizacao do artigo</Heading>
+          <Heading size={1}>Pré-visualização do artigo</Heading>
           <Text muted size={1}>
-            Esta aba simula a pagina publicada do artigo sobre fundo branco, incluindo capa,
-            titulo, metadados, texto e o card do blog.
+            Esta aba simula a página publicada do artigo sobre fundo branco, incluindo capa,
+            título, metadados, texto e o card do blog.
           </Text>
         </Stack>
 
@@ -232,7 +232,7 @@ export const PostStudioPreview: UserViewComponent = ({document}) => {
 
             {usesCoverFallback ? (
               <Text muted size={1}>
-                Nenhuma imagem especifica para card foi escolhida. O preview abaixo esta usando a
+                Nenhuma imagem específica para card foi escolhida. O preview abaixo está usando a
                 imagem de capa automaticamente.
               </Text>
             ) : null}
@@ -283,7 +283,7 @@ export const PostStudioPreview: UserViewComponent = ({document}) => {
                 >
                   {(displayed.conteudo &&
                     String(displayed.conteudo?.[0]?.children?.[0]?.text || '')?.slice(0, 140)) ||
-                    'O resumo do artigo aparecera aqui quando o texto for preenchido.'}
+                    'O resumo do artigo aparecerá aqui quando o texto for preenchido.'}
                 </p>
               </div>
             </article>

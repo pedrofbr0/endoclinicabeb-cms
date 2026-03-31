@@ -11,18 +11,18 @@ export const DoctorProfileStudioPreview: UserViewComponent = ({document}) => {
     <Box padding={4}>
       <Stack space={5}>
         <Stack space={2}>
-          <Heading size={1}>Pre-visualizacao da equipe</Heading>
+          <Heading size={1}>Pré-visualização da equipe</Heading>
           <Text muted size={1}>
-            Esta pre-visualizacao replica o card exibido na secao de equipe do site.
+            Esta pré-visualização replica o card exibido na seção de equipe do site.
           </Text>
         </Stack>
 
         <Card border padding={4} radius={4}>
-          <Stack space={3}>
-            <Flex align="center" justify="space-between">
-              <Heading size={1}>Foto e card do medico</Heading>
-              <Badge tone="primary">area de imagem 100% x 384px</Badge>
-            </Flex>
+            <Stack space={3}>
+              <Flex align="center" justify="space-between">
+                <Heading size={1}>Foto e card do médico</Heading>
+                <Badge tone="primary">área de imagem 100% x 384px</Badge>
+              </Flex>
 
             <article
               style={{
@@ -42,7 +42,7 @@ export const DoctorProfileStudioPreview: UserViewComponent = ({document}) => {
               >
                 {imageUrl ? (
                   <img
-                    alt={displayed.nome || 'Foto do medico'}
+                    alt={displayed.nome || 'Foto do médico'}
                     src={imageUrl}
                     style={{
                       width: '100%',
@@ -55,7 +55,7 @@ export const DoctorProfileStudioPreview: UserViewComponent = ({document}) => {
                 ) : (
                   <Flex align="center" justify="center" style={{width: '100%', height: '100%'}}>
                     <Text muted size={1}>
-                      A foto do medico aparecera aqui.
+                      A foto do médico aparecerá aqui.
                     </Text>
                   </Flex>
                 )}
@@ -85,7 +85,7 @@ export const DoctorProfileStudioPreview: UserViewComponent = ({document}) => {
                       fontFamily: 'Georgia, serif',
                     }}
                   >
-                    {displayed.nome || 'Nome do medico'}
+                    {displayed.nome || 'Nome do médico'}
                   </h3>
                   <p style={{margin: '0 0 6px', color: '#C9A962', fontSize: 14, fontWeight: 700}}>
                     {displayed.crm || 'CRM'}
@@ -98,17 +98,17 @@ export const DoctorProfileStudioPreview: UserViewComponent = ({document}) => {
 
               <div style={{padding: 32}}>
                 <p style={{margin: '0 0 12px', color: '#C9A962', fontSize: 12, fontWeight: 700}}>
-                  FORMACAO
+                  FORMAÇÃO
                 </p>
                 <p style={{margin: '0 0 22px', color: '#2C3E50', fontSize: 17, lineHeight: 1.6}}>
-                  {displayed.formacao || 'A formacao preenchida aparecera aqui.'}
+                  {displayed.formacao || 'A formação preenchida aparecerá aqui.'}
                 </p>
                 <p style={{margin: '0 0 12px', color: '#C9A962', fontSize: 12, fontWeight: 700}}>
-                  RESIDENCIAS
+                  RESIDÊNCIAS
                 </p>
                 <p style={{margin: 0, color: '#2C3E50', fontSize: 16, lineHeight: 1.7}}>
-                  {displayed.residencyClinica || 'Residencia clinica'} <br />
-                  {displayed.residencyEndo || 'Residencia em endocrinologia'}
+                  {displayed.residencyClinica || 'Residência clínica'} <br />
+                  {displayed.residencyEndo || 'Residência em endocrinologia'}
                 </p>
               </div>
             </article>

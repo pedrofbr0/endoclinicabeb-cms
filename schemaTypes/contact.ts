@@ -2,7 +2,7 @@ import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'contato',
-  title: 'Informacoes de Contato',
+  title: 'Informações de Contato',
   type: 'document',
   fields: [
     defineField({name: 'telefone', title: 'Telefone Celular / WhatsApp', type: 'string'}),
@@ -14,7 +14,7 @@ export default defineType({
     }),
     defineField({
       name: 'numero',
-      title: 'Numero',
+      title: 'Número',
       type: 'string',
     }),
     defineField({
@@ -47,14 +47,14 @@ export default defineType({
     defineField({name: 'linkedin', title: 'Link do LinkedIn', type: 'url'}),
     defineField({
       name: 'horarios',
-      title: 'Horarios de Atendimento',
+      title: 'Horários de Atendimento',
       type: 'array',
       of: [
         {
           type: 'object',
           fields: [
-            {name: 'dia', title: 'Dias (Ex: Terca-feira)', type: 'string'},
-            {name: 'horas', title: 'Horarios (Ex: 8h as 12h e 15h as 19h)', type: 'string'},
+            {name: 'dia', title: 'Dias (Ex.: Terça-feira)', type: 'string'},
+            {name: 'horas', title: 'Horários (Ex.: 8h às 12h e 15h às 19h)', type: 'string'},
           ],
           preview: {
             select: {title: 'dia', subtitle: 'horas'},
@@ -70,7 +70,7 @@ export default defineType({
     },
     prepare(selection) {
       return {
-        title: 'Dados Oficiais da Clinica',
+        title: 'Dados Oficiais da Clínica',
         subtitle: `${selection.selectedPhone || ''} | ${selection.selectedEmail || ''}`,
       }
     },

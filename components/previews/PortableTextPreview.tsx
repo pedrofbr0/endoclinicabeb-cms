@@ -64,7 +64,7 @@ const portableTextComponents = {
           <div style={{aspectRatio: '16 / 9', position: 'relative', overflow: 'hidden'}}>
             {thumbnailUrl ? (
               <img
-                alt={value?.titulo || 'Thumbnail do video do YouTube'}
+                alt={value?.titulo || 'Thumbnail do vídeo do YouTube'}
                 src={thumbnailUrl}
                 style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block'}}
               />
@@ -82,7 +82,7 @@ const portableTextComponents = {
                   fontWeight: 600,
                 }}
               >
-                Pre-visualizacao do embed do YouTube
+                Pré-visualização do embed do YouTube
               </div>
             )}
 
@@ -138,7 +138,7 @@ const portableTextComponents = {
                 lineHeight: 1.4,
               }}
             >
-              {value?.titulo || 'Thumbnail do video incorporado'}
+              {value?.titulo || 'Thumbnail do vídeo incorporado'}
             </div>
           </div>
         </div>
@@ -329,7 +329,7 @@ interface PortableTextPreviewProps {
 
 export function PortableTextPreview({value}: PortableTextPreviewProps) {
   if (!Array.isArray(value) || value.length === 0) {
-    return <p style={{margin: 0, color: '#6B7280'}}>O texto do artigo aparecera aqui.</p>
+    return <p style={{margin: 0, color: '#6B7280'}}>O texto do artigo aparecerá aqui.</p>
   }
 
   return <PortableText components={portableTextComponents} value={value} />
