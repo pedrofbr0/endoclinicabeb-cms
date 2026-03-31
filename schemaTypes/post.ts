@@ -19,6 +19,7 @@ export default defineType({
     select: {
       title: 'titulo',
       subtitle: 'autor',
+      cardMedia: 'imagemCard',
       media: 'imagemCapa',
       useRealDate: 'usarDataReal',
       displayDate: 'dataExibicao',
@@ -31,16 +32,39 @@ export default defineType({
       return {
         title: selection.title,
         subtitle: `${selection.subtitle || 'Sem autor'} - ${dateLabel}`,
-        media: selection.media,
+        media: selection.cardMedia || selection.media,
       }
     },
   },
   fields: [
     defineField({
       name: 'imagemCapa',
-      title: 'Imagem de Capa (Thumbnail)',
+      title: 'Imagem de Capa do Artigo',
       type: 'image',
-      options: {hotspot: true},
+      description:
+        'Usada na pagina do artigo e nos compartilhamentos. Use "Editar foco e recortar" para ajustar o enquadramento principal.',
+      options: {
+        hotspot: {
+          previews: [
+            {title: '3:4', aspectRatio: 3 / 4},
+            {title: 'Square', aspectRatio: 1},
+            {title: '16:9', aspectRatio: 16 / 9},
+            {title: 'Panorama', aspectRatio: 21 / 9},
+          ],
+        },
+      },
+    }),
+    defineField({
+      name: 'imagemCard',
+      title: 'Imagem para os Cards do Blog',
+      type: 'image',
+      description:
+        'Opcional. Use este campo quando a capa principal nao funcionar bem nas miniaturas. Se nada for escolhido aqui, o site usa automaticamente a imagem de capa do artigo.',
+      options: {
+        hotspot: {
+          previews: [{title: '16:9', aspectRatio: 16 / 9}],
+        },
+      },
     }),
     defineField({
       name: 'titulo',
@@ -90,7 +114,48 @@ export default defineType({
       title: 'Conteudo do Texto',
       type: 'array',
       of: [
-        {type: 'block'},
+        {
+          type: 'block',
+          styles: [
+            {title: 'Justificado (padrao)', value: 'normal'},
+            {title: 'A esquerda', value: 'alignLeft'},
+            {title: 'Centralizado', value: 'alignCenter'},
+            {title: 'A direita', value: 'alignRight'},
+            {title: 'Paragrafo justificado', value: 'justified'},
+            {title: 'Introducao em destaque', value: 'lead'},
+            {title: 'Titulo de secao', value: 'h2'},
+            {title: 'Subtitulo', value: 'h3'},
+            {title: 'Citacao', value: 'blockquote'},
+          ],
+          lists: [
+            {title: 'Marcadores', value: 'bullet'},
+            {title: 'Numerada', value: 'number'},
+          ],
+          marks: {
+            decorators: [
+              {title: 'Negrito', value: 'strong'},
+              {title: 'Italico', value: 'em'},
+            ],
+            annotations: [
+              {
+                name: 'link',
+                title: 'Link',
+                type: 'object',
+                fields: [
+                  defineField({
+                    name: 'href',
+                    title: 'URL',
+                    type: 'url',
+                    validation: (Rule) =>
+                      Rule.uri({
+                        scheme: ['http', 'https', 'mailto', 'tel'],
+                      }),
+                  }),
+                ],
+              },
+            ],
+          },
+        },
         {
           type: 'image',
           options: {hotspot: true},
