@@ -1,4 +1,4 @@
-import {Badge, Box, Card, Flex, Grid, Heading, Stack, Text} from '@sanity/ui'
+import {Box, Card, Flex, Grid, Heading, Stack, Text} from '@sanity/ui'
 import type {UserViewComponent} from 'sanity/structure'
 import {buildImageUrl, hasImageAsset} from '../../lib/imagePreview'
 import {PortableTextPreview} from './PortableTextPreview'
@@ -77,9 +77,24 @@ function PreviewImage({
 export const PostStudioPreview: UserViewComponent = ({document}) => {
   const displayed = (document.displayed || {}) as Record<string, any>
   const title = displayed.titulo || 'Título do artigo'
-  const author = displayed.autor || 'Autor do artigo'
+  const author = displayed.autor || ''
+  const showAuthor = displayed.hideAuthor !== true && Boolean(author)
+  const showDate = displayed.hideDate !== true
+  const showOnFrontend = displayed.showOnFrontend !== false
   const articleCardImage = displayed.imagemCard || displayed.imagemCapa
   const usesCoverFallback = !hasImageAsset(displayed.imagemCard) && hasImageAsset(displayed.imagemCapa)
+  const metaParts = [
+    showDate ? formatPreviewDate(displayed) : '',
+    showAuthor ? `Por ${author}` : '',
+  ].filter(Boolean)
+  const cardMetaParts = [
+    showDate ? formatPreviewDate(displayed) : '',
+    showAuthor ? author : '',
+  ].filter(Boolean)
+  const excerpt =
+    (displayed.conteudo &&
+      String(displayed.conteudo?.[0]?.children?.[0]?.text || '')?.slice(0, 160)) ||
+    'O resumo do artigo aparecerá aqui quando o texto for preenchido.'
 
   return (
     <Box padding={4}>
@@ -92,32 +107,57 @@ export const PostStudioPreview: UserViewComponent = ({document}) => {
           </Text>
         </Stack>
 
+        {!showOnFrontend ? (
+          <Card border padding={4} radius={4} tone="caution">
+            <Stack space={2}>
+              <Heading size={1}>Artigo oculto no frontend</Heading>
+              <Text size={1}>
+                Este artigo continua salvo no CMS, mas não aparece na home, na listagem do blog nem
+                no acesso direto do site enquanto a opção “Exibir no frontend” estiver desativada.
+              </Text>
+            </Stack>
+          </Card>
+        ) : null}
+
         <Grid columns={[1, 1, 2]} gap={4}>
           <Card border padding={4} radius={4}>
             <Stack space={3}>
-              <Flex align="center" justify="space-between">
+              <Flex align="center" justify="space-between" style={{gap: 12, flexWrap: 'wrap'}}>
                 <Heading size={1}>Capa da página do artigo</Heading>
-                <Badge tone="caution">aprox. 780 x 420</Badge>
+                <Text
+                  size={1}
+                  style={{
+                    color: '#C9A962',
+                    fontWeight: 700,
+                    padding: '4px 10px',
+                    borderRadius: 999,
+                    background: 'rgba(201, 169, 98, 0.12)',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  até 896 × 560
+                </Text>
               </Flex>
               <Text muted size={1}>
-                Esta imagem é usada no topo da página do artigo e também influencia o
-                compartilhamento.
+                No frontend, a capa aparece inteira acima do título, dentro de uma moldura mais
+                larga e sem corte agressivo.
               </Text>
+
               <div
                 style={{
-                  background: '#ffffff',
+                  background: '#FAFAF8',
                   borderRadius: 24,
                   border: '1px solid rgba(26, 58, 82, 0.08)',
-                  padding: '28px 24px',
+                  padding: '24px 20px',
                 }}
               >
-                <div style={{maxWidth: 780, margin: '0 auto'}}>
+                <div style={{maxWidth: 896, margin: '0 auto'}}>
                   <PreviewImage
                     alt={title}
-                    height={320}
+                    height={560}
                     image={displayed.imagemCapa}
                     objectFit="contain"
-                    width={780}
+                    width={1600}
                   />
                 </div>
               </div>
@@ -126,9 +166,21 @@ export const PostStudioPreview: UserViewComponent = ({document}) => {
 
           <Card border padding={4} radius={4}>
             <Stack space={3}>
-              <Flex align="center" justify="space-between">
+              <Flex align="center" justify="space-between" style={{gap: 12, flexWrap: 'wrap'}}>
                 <Heading size={1}>Card do blog</Heading>
-                <Badge tone="primary">16:9</Badge>
+                <Text
+                  size={1}
+                  style={{
+                    color: '#2563EB',
+                    fontWeight: 700,
+                    padding: '4px 10px',
+                    borderRadius: 999,
+                    background: 'rgba(37, 99, 235, 0.10)',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  16:9
+                </Text>
               </Flex>
 
               {usesCoverFallback ? (
@@ -140,40 +192,44 @@ export const PostStudioPreview: UserViewComponent = ({document}) => {
 
               <article
                 style={{
-                  maxWidth: 420,
+                  maxWidth: 480,
                   background: '#ffffff',
-                  borderRadius: 24,
+                  borderRadius: 16,
                   overflow: 'hidden',
                   border: '1px solid rgba(26, 58, 82, 0.08)',
-                  boxShadow: '0 18px 42px rgba(15, 23, 42, 0.06)',
+                  boxShadow: '0 12px 28px rgba(15, 23, 42, 0.06)',
                 }}
               >
-                <PreviewImage alt={title} height={214} image={articleCardImage} width={420} />
+                <PreviewImage alt={title} height={270} image={articleCardImage} width={960} />
 
-                <div style={{padding: 28}}>
-                  <p
-                    style={{
-                      margin: '0 0 12px',
-                      color: '#C9A962',
-                      fontSize: 14,
-                      fontWeight: 600,
-                      letterSpacing: 0.4,
-                    }}
-                  >
-                    {formatPreviewDate(displayed)} . {author}
-                  </p>
+                <div style={{padding: 32}}>
+                  {cardMetaParts.length ? (
+                    <p
+                      style={{
+                        margin: '0 0 12px',
+                        color: '#C9A962',
+                        fontSize: 14,
+                        fontWeight: 600,
+                        letterSpacing: 0.3,
+                      }}
+                    >
+                      {cardMetaParts.join(' • ')}
+                    </p>
+                  ) : null}
+
                   <h3
                     style={{
-                      margin: '0 0 14px',
+                      margin: '0 0 16px',
                       color: '#1A3A52',
-                      fontSize: 28,
-                      fontWeight: 700,
+                      fontSize: 24,
                       lineHeight: 1.25,
-                      fontFamily: 'Georgia, serif',
+                      fontWeight: 700,
+                      fontFamily: '"Playfair Display", serif',
                     }}
                   >
                     {title}
                   </h3>
+
                   <p
                     style={{
                       margin: 0,
@@ -182,9 +238,7 @@ export const PostStudioPreview: UserViewComponent = ({document}) => {
                       lineHeight: 1.7,
                     }}
                   >
-                    {(displayed.conteudo &&
-                      String(displayed.conteudo?.[0]?.children?.[0]?.text || '')?.slice(0, 140)) ||
-                      'O resumo do artigo aparecerá aqui quando o texto for preenchido.'}
+                    {excerpt}
                   </p>
                 </div>
               </article>
@@ -203,7 +257,7 @@ export const PostStudioPreview: UserViewComponent = ({document}) => {
         >
           <div
             style={{
-              maxWidth: 980,
+              maxWidth: 1080,
               margin: '0 auto',
               padding: '28px 24px 40px',
               background: '#ffffff',
@@ -224,7 +278,7 @@ export const PostStudioPreview: UserViewComponent = ({document}) => {
               &larr; Voltar para o blog
             </a>
 
-            <div style={{maxWidth: 780, margin: '0 auto 48px'}}>
+            <div style={{maxWidth: 896, margin: '0 auto 48px'}}>
               <div
                 style={{
                   borderRadius: 24,
@@ -236,10 +290,10 @@ export const PostStudioPreview: UserViewComponent = ({document}) => {
               >
                 <PreviewImage
                   alt={title}
-                  height={320}
+                  height={560}
                   image={displayed.imagemCapa}
                   objectFit="contain"
-                  width={780}
+                  width={1600}
                 />
               </div>
             </div>
@@ -259,7 +313,7 @@ export const PostStudioPreview: UserViewComponent = ({document}) => {
                   fontSize: 'clamp(2.6rem, 5vw, 4.3rem)',
                   lineHeight: 1.1,
                   fontWeight: 700,
-                  fontFamily: 'Georgia, serif',
+                  fontFamily: '"Playfair Display", serif',
                 }}
               >
                 {title}
@@ -274,23 +328,32 @@ export const PostStudioPreview: UserViewComponent = ({document}) => {
                   flexWrap: 'wrap',
                 }}
               >
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 14,
-                    flexWrap: 'wrap',
-                    color: '#6B7280',
-                    fontSize: 13,
-                    fontWeight: 700,
-                    letterSpacing: 0.6,
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  <span>{formatPreviewDate(displayed)}</span>
-                  <span style={{color: '#C9A962'}}>.</span>
-                  <span>Por {author}</span>
-                </div>
+                {metaParts.length ? (
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 14,
+                      flexWrap: 'wrap',
+                      color: '#6B7280',
+                      fontSize: 13,
+                      fontWeight: 700,
+                      letterSpacing: 0.6,
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    {metaParts.map((part, index) => (
+                      <Flex key={part} align="center" gap={14}>
+                        {index > 0 ? <span style={{color: '#C9A962'}}>•</span> : null}
+                        <span>{part}</span>
+                      </Flex>
+                    ))}
+                  </div>
+                ) : (
+                  <Text muted size={1}>
+                    Sem metadados visíveis no frontend.
+                  </Text>
+                )}
 
                 <div
                   style={{

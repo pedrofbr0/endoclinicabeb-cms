@@ -12,7 +12,7 @@ export function PostCardImageField(props: FieldProps) {
         badge="16:9"
         helpText="Esta é a área efetiva da miniatura usada nos cards da home e da listagem do blog."
       >
-        <div style={{maxWidth: 420, margin: '0 auto'}}>
+        <div style={{maxWidth: 480, margin: '0 auto'}}>
           <ImageStage
             imageValue={imageValue}
             alt="Prévia da imagem do card do blog"

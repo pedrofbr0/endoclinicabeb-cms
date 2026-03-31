@@ -11,18 +11,26 @@ export function PostCoverImageField(props: FieldProps) {
       <Grid columns={[1, 1, 2]} gap={3}>
         <PreviewPanel
           title="Capa na página do artigo"
-          badge="780 × 320"
-          helpText="Na página do artigo, a imagem de capa é exibida inteira dentro de uma moldura mais larga."
+          badge="até 896 × 560"
+          helpText="No frontend, a capa aparece inteira dentro de uma moldura mais larga, acima do título do artigo."
         >
-          <div style={{background: '#ffffff', borderRadius: 24, padding: 18, margin: '0 auto'}}>
+          <div
+            style={{
+              background: '#FAFAF8',
+              borderRadius: 24,
+              padding: 18,
+              margin: '0 auto',
+              border: '1px solid rgba(26, 58, 82, 0.08)',
+            }}
+          >
             <ImageStage
               imageValue={imageValue}
               alt="Prévia da capa do artigo"
-              width={780}
-              height={320}
+              width={1600}
+              height={560}
               fit="max"
               objectFit="contain"
-              aspectRatio="39 / 16"
+              aspectRatio="8 / 5"
               emptyText="A capa do artigo aparecerá aqui depois do upload."
             />
           </div>
