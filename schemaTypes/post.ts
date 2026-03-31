@@ -31,17 +31,26 @@ export default defineType({
       subtitle: 'autor',
       cardMedia: 'imagemCard',
       media: 'imagemCapa',
+      showOnFrontend: 'showOnFrontend',
       useRealDate: 'usarDataReal',
       displayDate: 'dataExibicao',
       createdAt: '_createdAt',
+      hideAuthor: 'hideAuthor',
+      hideDate: 'hideDate',
     },
     prepare(selection) {
       const baseDate = selection.useRealDate === false ? selection.displayDate : selection.createdAt
       const dateLabel = formatPreviewDate(baseDate)
+      const visibilityLabel =
+        selection.showOnFrontend === false ? 'Oculto no frontend' : 'Visível no frontend'
+      const authorLabel = selection.hideAuthor
+        ? 'Autor oculto no frontend'
+        : selection.subtitle || 'Sem autor'
+      const resolvedDateLabel = selection.hideDate ? 'Data oculta no frontend' : dateLabel
 
       return {
         title: selection.title,
-        subtitle: `${selection.subtitle || 'Sem autor'} - ${dateLabel}`,
+        subtitle: `${visibilityLabel} \u2022 ${authorLabel} \u2022 ${resolvedDateLabel}`,
         media: selection.cardMedia || selection.media,
       }
     },
@@ -100,9 +109,38 @@ export default defineType({
       title: 'Autor',
       type: 'string',
       group: 'publishing',
+      description:
+        'Nome do médico vinculado ao artigo. Se a opção "Ocultar autor no frontend" estiver ativada, esse nome continua salvo no CMS, mas não aparece nos cards nem na página do artigo.',
       options: {
-        list: ['Dr. Rui Barbosa', 'Dr. Yuri Bittencourt'],
+        list: ['Dr. Rui Barbosa', 'Dr. Yuri Bittencourt', 'EndoClínica B&B'],
       },
+    }),
+    defineField({
+      name: 'showOnFrontend',
+      title: 'Exibir no frontend',
+      type: 'boolean',
+      group: 'publishing',
+      description:
+        'Quando ativado, o artigo aparece no site: nos artigos recentes, na listagem do blog e no link direto do artigo. Quando desativado, ele continua salvo no CMS, mas fica oculto no frontend para testes, rascunhos avançados ou publicações futuras.',
+      initialValue: true,
+    }),
+    defineField({
+      name: 'hideAuthor',
+      title: 'Ocultar autor no frontend',
+      type: 'boolean',
+      group: 'publishing',
+      description:
+        'Quando ativado, o nome do autor não aparece no frontend, nem nos cards do blog nem na página do artigo. O vínculo com o médico continua salvo aqui no CMS.',
+      initialValue: false,
+    }),
+    defineField({
+      name: 'hideDate',
+      title: 'Ocultar data no frontend',
+      type: 'boolean',
+      group: 'publishing',
+      description:
+        'Quando ativado, a data não aparece no frontend. Ainda assim, a data real ou a data selecionada continua sendo usada internamente para ordenar os artigos.',
+      initialValue: false,
     }),
     defineField({
       name: 'usarDataReal',
@@ -110,7 +148,7 @@ export default defineType({
       type: 'boolean',
       group: 'publishing',
       description:
-        'Quando ativo, o site mostra a data real registrada pelo Sanity. Desative para usar uma data fictícia.',
+        'Quando ativado, o frontend usa a data real registrada pelo Sanity. Desative para escolher manualmente a data que deve ser considerada no site. Mesmo se a data estiver oculta no frontend, esta opção ainda afeta a ordenação dos artigos.',
       initialValue: true,
     }),
     defineField({
@@ -119,7 +157,7 @@ export default defineType({
       type: 'date',
       group: 'publishing',
       description:
-        'Usada apenas quando a data real estiver desativada. A data real continua registrada internamente pelo Sanity.',
+        'Usada apenas quando a data real estiver desativada. Esta data passa a ser a referência usada no frontend e na ordenação dos artigos, mesmo que a opção de ocultar data esteja ativa.',
       hidden: ({document}) => document?.usarDataReal !== false,
       validation: (Rule) =>
         Rule.custom((value, context) => {
