@@ -1,4 +1,5 @@
 import type {FieldProps} from 'sanity'
+import {ImageFieldEditorShell} from './ImageFieldEditorShell'
 import {ImageStage, PreviewPanel} from './ImageFieldPreviewLayout'
 
 export function HeroImageField(props: FieldProps) {
@@ -6,7 +7,7 @@ export function HeroImageField(props: FieldProps) {
 
   return (
     <>
-      {props.renderDefault(props)}
+      <ImageFieldEditorShell {...props} />
       <PreviewPanel
         title="Região visível na imagem de destaque"
         badge="Hero 4:5"

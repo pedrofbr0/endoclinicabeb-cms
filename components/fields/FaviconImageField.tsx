@@ -1,6 +1,7 @@
 import {Flex, Text} from '@sanity/ui'
 import type {FieldProps} from 'sanity'
 import {buildImageUrl} from '../../lib/imagePreview'
+import {ImageFieldEditorShell} from './ImageFieldEditorShell'
 import {PreviewPanel} from './ImageFieldPreviewLayout'
 
 export function FaviconImageField(props: FieldProps) {
@@ -13,7 +14,7 @@ export function FaviconImageField(props: FieldProps) {
 
   return (
     <>
-      {props.renderDefault(props)}
+      <ImageFieldEditorShell {...props} />
       <PreviewPanel
         title="Como o favicon aparece"
         badge="1:1"

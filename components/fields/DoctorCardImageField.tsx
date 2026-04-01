@@ -4,6 +4,7 @@ import type {FieldProps} from 'sanity'
 import {useClient, useFormValue} from 'sanity'
 import {buildImageUrl, hasImageAsset} from '../../lib/imagePreview'
 import {STUDIO_API_VERSION} from '../../lib/studioConfig'
+import {ImageFieldEditorShell} from './ImageFieldEditorShell'
 
 type SanityImageValue = Record<string, unknown> | undefined
 
@@ -26,7 +27,7 @@ interface DoctorCardStageProps {
   crm: string
   specialty: string
   isMobile?: boolean
-  widthPreset?: 'desktop' | 'mobile'
+  stageMaxWidth?: number
 }
 
 function AwardIcon({size = 16}: {size?: number}) {
@@ -73,16 +74,15 @@ function DoctorCardStage({
   crm,
   specialty,
   isMobile = false,
-  widthPreset = 'desktop',
+  stageMaxWidth,
 }: DoctorCardStageProps) {
   return (
     <Stack
       space={2}
       style={{
-        flex: widthPreset === 'mobile' ? '0 1 360px' : '1 1 100%',
-        minWidth: widthPreset === 'mobile' ? 280 : 0,
-        maxWidth: widthPreset === 'mobile' ? 360 : 720,
-        width: widthPreset === 'desktop' ? '100%' : undefined,
+        width: '100%',
+        maxWidth: stageMaxWidth,
+        marginInline: 'auto',
       }}
     >
       <Flex align="center" justify="space-between" style={{gap: 8, flexWrap: 'wrap'}}>
@@ -141,6 +141,7 @@ function DoctorCardStage({
                   fontWeight: 700,
                   lineHeight: 1.25,
                   marginBottom: isMobile ? 6 : 8,
+                  textWrap: 'balance',
                 }}
               >
                 {name}
@@ -275,9 +276,71 @@ export function DoctorCardImageField(props: FieldProps) {
   const publishedLicense = publishedSnapshot?.crm?.trim() || doctorLicense
   const publishedSpecialty = publishedSnapshot?.especialidade?.trim() || doctorSpecialty
 
+  const draftDesktopStage = (
+    <DoctorCardStage
+      imageValue={draftCardSource}
+      imageUrl={draftDesktopUrl}
+      aspectRatio="16 / 10"
+      badge="16:10"
+      title="Após publicar • desktop"
+      emptyText="A prévia desktop do card aparecerá aqui depois do upload."
+      name={doctorName}
+      crm={doctorLicense}
+      specialty={doctorSpecialty}
+      stageMaxWidth={760}
+    />
+  )
+
+  const draftMobileStage = (
+    <DoctorCardStage
+      imageValue={draftCardSource}
+      imageUrl={draftMobileUrl}
+      aspectRatio="4 / 3"
+      badge="4:3"
+      title="Após publicar • mobile"
+      emptyText="A prévia mobile do card aparecerá aqui depois do upload."
+      name={doctorName}
+      crm={doctorLicense}
+      specialty={doctorSpecialty}
+      isMobile
+      stageMaxWidth={390}
+    />
+  )
+
+  const publishedDesktopStage = (
+    <DoctorCardStage
+      imageValue={publishedCardSource}
+      imageUrl={publishedDesktopUrl}
+      aspectRatio="16 / 10"
+      badge="16:10"
+      title="Publicado • desktop"
+      emptyText="Ainda não existe uma versão publicada desta imagem no site."
+      name={publishedName}
+      crm={publishedLicense}
+      specialty={publishedSpecialty}
+      stageMaxWidth={760}
+    />
+  )
+
+  const publishedMobileStage = (
+    <DoctorCardStage
+      imageValue={publishedCardSource}
+      imageUrl={publishedMobileUrl}
+      aspectRatio="4 / 3"
+      badge="4:3"
+      title="Publicado • mobile"
+      emptyText="Ainda não existe uma versão publicada desta imagem no site."
+      name={publishedName}
+      crm={publishedLicense}
+      specialty={publishedSpecialty}
+      isMobile
+      stageMaxWidth={390}
+    />
+  )
+
   return (
     <Stack space={3}>
-      {props.renderDefault(props)}
+      <ImageFieldEditorShell {...props} />
 
       <Card border padding={3} radius={3} tone="transparent">
         <Stack space={4}>
@@ -303,34 +366,10 @@ export function DoctorCardImageField(props: FieldProps) {
             </Card>
           ) : null}
 
-          <div style={{display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'flex-start'}}>
-            <DoctorCardStage
-              imageValue={draftCardSource}
-              imageUrl={draftDesktopUrl}
-              aspectRatio="16 / 10"
-              badge="16:10"
-              title="Após publicar • desktop"
-              emptyText="A prévia desktop do card aparecerá aqui depois do upload."
-              name={doctorName}
-              crm={doctorLicense}
-              specialty={doctorSpecialty}
-              widthPreset="desktop"
-            />
-
-            <DoctorCardStage
-              imageValue={draftCardSource}
-              imageUrl={draftMobileUrl}
-              aspectRatio="4 / 3"
-              badge="4:3"
-              title="Após publicar • mobile"
-              emptyText="A prévia mobile do card aparecerá aqui depois do upload."
-              name={doctorName}
-              crm={doctorLicense}
-              specialty={doctorSpecialty}
-              isMobile
-              widthPreset="mobile"
-            />
-          </div>
+          <Stack space={4}>
+            {draftDesktopStage}
+            {draftMobileStage}
+          </Stack>
 
           {hasPublishedVersion ? (
             <Stack space={3}>
@@ -347,34 +386,10 @@ export function DoctorCardImageField(props: FieldProps) {
                 prévia acima, ainda falta publicar o rascunho.
               </Text>
 
-              <div style={{display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'flex-start'}}>
-                <DoctorCardStage
-                  imageValue={publishedCardSource}
-                  imageUrl={publishedDesktopUrl}
-                  aspectRatio="16 / 10"
-                  badge="16:10"
-                  title="Publicado • desktop"
-                  emptyText="Ainda não existe uma versão publicada desta imagem no site."
-                  name={publishedName}
-                  crm={publishedLicense}
-                  specialty={publishedSpecialty}
-                  widthPreset="desktop"
-                />
-
-                <DoctorCardStage
-                  imageValue={publishedCardSource}
-                  imageUrl={publishedMobileUrl}
-                  aspectRatio="4 / 3"
-                  badge="4:3"
-                  title="Publicado • mobile"
-                  emptyText="Ainda não existe uma versão publicada desta imagem no site."
-                  name={publishedName}
-                  crm={publishedLicense}
-                  specialty={publishedSpecialty}
-                  isMobile
-                  widthPreset="mobile"
-                />
-              </div>
+              <Stack space={4}>
+                {publishedDesktopStage}
+                {publishedMobileStage}
+              </Stack>
             </Stack>
           ) : null}
         </Stack>
